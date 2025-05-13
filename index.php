@@ -14,28 +14,26 @@ if (isset($_POST['submit'])) {
     $firstname = $_POST['firstname'];
     $lastname = $_POST['lastname'];
     $email = $_POST['email'];
+    
+    
 
-    if ($email == $_POST['email']) {
-        echo "Email already exists";
-    } else {
-        // all file in associative array
-        $file = ["firstname" => "$firstname", "lastname" => "$lastname", "email" => "$email"];
 
-        $sql = "INSERT INTO MyGuests (firstname, lastname, email)
+    // all file in associative array
+    $file = ["firstname" => "$firstname", "lastname" => "$lastname", "email" => "$email"];
+
+    $sql = "INSERT INTO MyGuests (firstname, lastname, email)
 VALUES ('$file[firstname]', '$file[lastname]', '$file[email]')";
 
-        if (mysqli_query($conn, $sql)) {
-            echo "New record created successfully";
-        } else {
-            echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-        }
-
+    if (mysqli_query($conn, $sql)) {
+        echo "New record created successfully";
+    } else {
+        echo "Error: " . $sql . "<br>" . mysqli_error($conn);
     }
 
-
-
-
 }
+
+
+
 
 
 // update the data from the form into the table
