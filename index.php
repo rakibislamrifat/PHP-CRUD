@@ -15,41 +15,27 @@ if (isset($_POST['submit'])) {
     $lastname = $_POST['lastname'];
     $email = $_POST['email'];
 
-
-    // all file in associative array
-    $file=["firstname"=>"$firstname", "lastname"=>"$lastname", "email"=>"$email"];
-
-    $sql = "INSERT INTO MyGuests (firstname, lastname, email)
-    VALUES ('$file[firstname]', '$file[lastname]', '$file[email]')";
-
-    if (mysqli_query($conn, $sql)) {
-        echo "New record created successfully";
+    if ($email == $_POST['email']) {
+        echo "Email already exists";
     } else {
-        echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+        // all file in associative array
+        $file = ["firstname" => "$firstname", "lastname" => "$lastname", "email" => "$email"];
+
+        $sql = "INSERT INTO MyGuests (firstname, lastname, email)
+VALUES ('$file[firstname]', '$file[lastname]', '$file[email]')";
+
+        if (mysqli_query($conn, $sql)) {
+            echo "New record created successfully";
+        } else {
+            echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+        }
+
     }
-   
+
+
+
+
 }
-
-
-// submit button for update the data from the form into the table
-
-if(isset($_POST['submit'])){
-    $firstname=$_POST['firstname'];
-    $lastname=$_POST['lastname'];
-    $email=$_POST['email'];
-
-    $file=["firstname"=>"$firstname", "lastname"=>"$lastname", "email"=>"$email"];
-
-    $sql="INSERT INTO MyGuests(firstname, lastname, email)
-    VALUES('$file[firstname]', '$file[lastname]', '$file[email]')";
-
-    if(mysqli_query($conn, $sql)){
-        echo "New record created successfully";
-    }else{
-        echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-    }
-}
-
 
 
 // update the data from the form into the table
@@ -59,7 +45,7 @@ if (isset($_POST['update'])) {
     $lastname = $_POST['lastname'];
     $email = $_POST['email'];
 
-    $updateFile=["id"=>"$id", "firstname"=>"$firstname", "lastname"=>"$lastname", "email"=>"$email"];
+    $updateFile = ["id" => "$id", "firstname" => "$firstname", "lastname" => "$lastname", "email" => "$email"];
 
     // Update query
     $sql = "UPDATE MyGuests SET firstname='$updateFile[firstname]', lastname='$updateFile[lastname]', email='$updateFile[email]' WHERE id=$updateFile[id]";
@@ -73,14 +59,14 @@ if (isset($_POST['update'])) {
 
 
 // Delete the data from the tabl
-if(isset($_POST['delete'])){
-    $id=$_POST['id'];
+if (isset($_POST['delete'])) {
+    $id = $_POST['id'];
 
-    $sql="DELETE FROM MyGuests WHERE id=$id";
+    $sql = "DELETE FROM MyGuests WHERE id=$id";
 
-    if(mysqli_query($conn, $sql)){
+    if (mysqli_query($conn, $sql)) {
         echo "Record deleted successfully";
-    }else{
+    } else {
         echo "Error deleting record: " . mysqli_error($conn);
     }
 }
